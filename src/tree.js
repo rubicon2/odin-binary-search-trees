@@ -3,7 +3,7 @@ import Node from './node';
 export default class Tree {
     constructor(items) {
         // sort array
-
+        items.sort((a, b) => a > b);
         // remove duplicates
 
         this.root = Tree.build(items);
