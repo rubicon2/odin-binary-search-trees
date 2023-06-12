@@ -5,8 +5,31 @@ export default class Tree {
         // sort array
         items.sort((a, b) => a > b);
         // remove duplicates
-
+        items = [...new Set(items)];
         this.root = Tree.build(items);
+    }
+
+    insert(item) {
+        let currentNode = this.root;
+        let searchingForInsertPoint = true;
+        while (searchingForInsertPoint) {
+            if (currentNode.data === item) {
+                // Do nothing, no duplicates allowed in Tree
+                break;
+            } else if (item < currentNode.data) {
+                if (currentNode.left) currentNode = currentNode.left;
+                else {
+                    currentNode.left = new Node(item);
+                    break;
+                }
+            } else if (item > currentNode.data) {
+                if (currentNode.right) currentNode = currentNode.right;
+                else {
+                    currentNode.right = new Node(item);
+                    break;
+                }
+            }
+        }
     }
 
     static build(items) {
