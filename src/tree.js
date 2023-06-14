@@ -2,9 +2,9 @@ import Node from './node';
 
 export default class Tree {
     constructor(items) {
-        // sort array
+        // Sort array
         items.sort((a, b) => a > b);
-        // remove duplicates
+        // Remove duplicates
         items = [...new Set(items)];
         this.root = Tree.build(items);
     }
@@ -30,6 +30,63 @@ export default class Tree {
                 }
             }
         }
+    }
+
+    findItemAndParent(item) {
+        let currentNode = this.root;
+        while (currentNode != null) {
+            if (currentNode.left.data === item)
+                return {
+                    parent: currentNode,
+                    target: currentNode.left,
+                    whichChild: 'left',
+                };
+            else if (currentNode.right.data === item)
+                return {
+                    parent: currentNode,
+                    target: currentNode.right,
+                    whichChild: 'right',
+                };
+            else {
+                currentNode =
+                    item < currentNode.data
+                        ? currentNode.left
+                        : currentNode.right;
+            }
+        }
+        // No node found!
+        console.warn(`Looked for ${item} in Tree - not found.`);
+        return null;
+    }
+
+    find(item) {
+        let currentNode = this.root;
+        while (currentNode != null) {
+            if (currentNode.data === item) return currentNode;
+            else {
+                currentNode =
+                    item < currentNode.data
+                        ? currentNode.left
+                        : currentNode.right;
+            }
+        }
+        // No node found!
+        console.warn(`Looked for ${item} in Tree - not found.`);
+        return null;
+    }
+
+    static findSmallestItemInTree(node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    static findLargestItemInTree(node) {
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node;
     }
 
     static build(items) {
