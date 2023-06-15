@@ -32,16 +32,44 @@ export default class Tree {
         }
     }
 
-    findItemAndParent(item) {
-        let currentNode = this.root;
+    static delete(node, item) {
+        let { target, parent, whichChild } = Tree.findItemAndParent(node, item);
+        // If target is a leaf node
+        if (!target.left && !target.right) parent[whichChild] = null;
+        // If target has one child, grab its values, delete child, then replace target's values with those of child
+        else if (!target.right) {
+            let replacementNode = target.left;
+            this.delete(target, replacementNode.data);
+            Object.assign(target, replacementNode);
+        } else if (!target.left) {
+            let replacementNode = target.right;
+            this.delete(target, replacementNode.data);
+            Object.assign(target, replacementNode);
+        } else {
+            // If there are left and right children...
+            // Find next largest node, i.e. right child then all the way to the left - this will be a leaf node so no worries about any child nodes
+            let nextLargestNode = this.findSmallestItemInTree(target.right);
+            // Grab nextLargestNode.data before deleting that node and then assigning value to target.data
+            // Otherwise, we will have a duplicate value in our tree - very bad!
+            let newData = nextLargestNode.data;
+            this.delete(target, nextLargestNode.data);
+            target.data = newData;
+        }
+    }
+
+    static findItemAndParent(node, item) {
+        if (node.data === item)
+            return { parent: null, target: node, whichChild: null };
+
+        let currentNode = node;
         while (currentNode != null) {
-            if (currentNode.left.data === item)
+            if (currentNode.left?.data === item)
                 return {
                     parent: currentNode,
                     target: currentNode.left,
                     whichChild: 'left',
                 };
-            else if (currentNode.right.data === item)
+            else if (currentNode.right?.data === item)
                 return {
                     parent: currentNode,
                     target: currentNode.right,
