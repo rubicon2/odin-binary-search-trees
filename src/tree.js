@@ -87,8 +87,8 @@ export default class Tree {
         return null;
     }
 
-    find(item) {
-        let currentNode = this.root;
+    static find(node, item) {
+        let currentNode = node;
         while (currentNode != null) {
             if (currentNode.data === item) return currentNode;
             else {
