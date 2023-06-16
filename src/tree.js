@@ -9,6 +9,24 @@ export default class Tree {
         this.root = Tree.build(items);
     }
 
+    levelOrder(fn) {
+        // Traverse tree breadth-first and provide each node as the argument to the provided function.
+        // This method should return an array of values if no function is given.
+        let nodesToTraverse = [this.root];
+        let values = [];
+        while (nodesToTraverse.length > 0) {
+            let currentNode = nodesToTraverse.shift();
+            if (fn != null) fn(currentNode);
+            else values.push(currentNode.data);
+            // Enqueue any child nodes
+            if (currentNode.left != null)
+                nodesToTraverse.push(currentNode.left);
+            if (currentNode.right != null)
+                nodesToTraverse.push(currentNode.right);
+        }
+        if (!fn) return values;
+    }
+
     insert(item) {
         let currentNode = this.root;
         let searchingForInsertPoint = true;
