@@ -27,6 +27,23 @@ export default class Tree {
         if (!fn) return values;
     }
 
+    preorder(fn) {
+        let nodesToTraverse = [this.root];
+        let values = [];
+        while (nodesToTraverse.length > 0) {
+            // This needs to be treated like a stack, not a queue! Push and pop!
+            let currentNode = nodesToTraverse.pop();
+            if (fn != null) fn(currentNode);
+            else values.push(currentNode.data);
+            // Add any child nodes to the stack. We want to look at the left node first, so push right child THEN left child
+            if (currentNode.right != null)
+                nodesToTraverse.push(currentNode.right);
+            if (currentNode.left != null)
+                nodesToTraverse.push(currentNode.left);
+        }
+        if (!fn) return values;
+    }
+
     insert(item) {
         let currentNode = this.root;
         let searchingForInsertPoint = true;
