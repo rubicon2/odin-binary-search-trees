@@ -28,6 +28,7 @@ export default class Tree {
     }
 
     preorder(fn) {
+        // preorder - root, left, right
         let nodesToTraverse = [this.root];
         let values = [];
         while (nodesToTraverse.length > 0) {
@@ -35,13 +36,68 @@ export default class Tree {
             let currentNode = nodesToTraverse.pop();
             if (fn != null) fn(currentNode);
             else values.push(currentNode.data);
-            // Add any child nodes to the stack. We want to look at the left node first, so push right child THEN left child
+            // Add any child nodes to the stack. We want to look at the left node and pop it off the stack first, so push right child THEN left child
             if (currentNode.right != null)
                 nodesToTraverse.push(currentNode.right);
             if (currentNode.left != null)
                 nodesToTraverse.push(currentNode.left);
         }
         if (!fn) return values;
+    }
+
+    // recursive method
+    static inorder(node, fn) {
+        // inorder - left, root, right
+        if (!node.left && !node.right) {
+            if (!fn) return [node.data];
+            else {
+                fn(node);
+                return;
+            }
+        } else {
+            if (!fn) {
+                let values = [];
+                if (node.left != null)
+                    values = values.concat(Tree.inorder(node.left));
+                // root
+                values = values.concat(node.data);
+                if (node.right != null)
+                    values = values.concat(Tree.inorder(node.right));
+                return values;
+            } else {
+                if (node.left != null) Tree.inorder(node.left, fn);
+                // root
+                fn(node);
+                if (node.right != null) Tree.inorder(node.right, fn);
+            }
+        }
+    }
+
+    // recursive method
+    static postorder(node, fn) {
+        // postorder - left, right, root
+        if (!node.left && !node.right) {
+            if (!fn) return [node.data];
+            else {
+                fn(node);
+                return;
+            }
+        } else {
+            if (!fn) {
+                let values = [];
+                if (node.left != null)
+                    values = values.concat(Tree.postorder(node.left));
+                if (node.right != null)
+                    values = values.concat(Tree.postorder(node.right));
+                values = values.concat(node.data);
+                return values;
+            } else {
+                if (node.left != null) Tree.postorder(node.left, fn);
+                if (node.right != null) Tree.postorder(node.right, fn);
+                // root
+                fn(node);
+            }
+        }
     }
 
     insert(item) {
