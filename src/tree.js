@@ -129,6 +129,23 @@ export default class Tree {
         return 1 + Math.max(this.height(node.left), this.height(node.right));
     }
 
+    depth(node) {
+        let currentNode = this.root;
+        let depth = 0;
+        while (currentNode != null) {
+            if (currentNode.data === node.data) return depth;
+            else {
+                depth++;
+                currentNode =
+                    node.data < currentNode.data
+                        ? currentNode.left
+                        : currentNode.right;
+            }
+        }
+        // Node not found!
+        return null;
+    }
+
     static delete(node, item) {
         let { target, parent, whichChild } = Tree.findItemAndParent(node, item);
         // If target is a leaf node
