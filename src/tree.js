@@ -246,12 +246,12 @@ export default class Tree {
         );
     }
 
-    static prettyPrint(node, prefix = '', isLeft = true) {
+    prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) {
             return;
         }
         if (node.right !== null) {
-            Tree.prettyPrint(
+            this.prettyPrint(
                 node.right,
                 `${prefix}${isLeft ? '│   ' : '    '}`,
                 false
@@ -259,7 +259,7 @@ export default class Tree {
         }
         console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
         if (node.left !== null) {
-            Tree.prettyPrint(
+            this.prettyPrint(
                 node.left,
                 `${prefix}${isLeft ? '    ' : '│   '}`,
                 true
