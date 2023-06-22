@@ -201,16 +201,10 @@ export default class Tree {
         return null;
     }
 
-    static find(node, item) {
-        let currentNode = node;
-        while (currentNode != null) {
-            if (currentNode.data === item) return currentNode;
-            else {
-                currentNode =
-                    item < currentNode.data
-                        ? currentNode.left
-                        : currentNode.right;
-            }
+    find(item, node = this.root) {
+        while (node != null) {
+            if (node.data === item) return node;
+            else node = item < node.data ? node.left : node.right;
         }
         // No node found!
         console.warn(`Looked for ${item} in Tree - not found.`);
