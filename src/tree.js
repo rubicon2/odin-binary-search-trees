@@ -9,10 +9,9 @@ export default class Tree {
         this.root = this.build(items);
     }
 
-    levelOrder(fn) {
-        // Traverse tree breadth-first and provide each node as the argument to the provided function.
-        // This method should return an array of values if no function is given.
-        let nodesToTraverse = [this.root];
+    levelorder(fn, node = this.root) {
+        // Make a recursive version that avoids using arrays, especially shift() as that re-numbers all the elements!
+        let nodesToTraverse = [node];
         let values = [];
         while (nodesToTraverse.length > 0) {
             let currentNode = nodesToTraverse.shift();
@@ -27,9 +26,9 @@ export default class Tree {
         if (!fn) return values;
     }
 
-    preorder(fn) {
+    preorder(fn, node = this.root) {
         // preorder - root, left, right
-        let nodesToTraverse = [this.root];
+        let nodesToTraverse = [node];
         let values = [];
         while (nodesToTraverse.length > 0) {
             // This needs to be treated like a stack, not a queue! Push and pop!
