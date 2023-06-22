@@ -46,7 +46,7 @@ export default class Tree {
     }
 
     // recursive method
-    static inorder(node, fn) {
+    inorder(fn, node = this.root) {
         // inorder - left, root, right
         if (!node.left && !node.right) {
             if (!fn) return [node.data];
@@ -58,17 +58,17 @@ export default class Tree {
             if (!fn) {
                 let values = [];
                 if (node.left != null)
-                    values = values.concat(Tree.inorder(node.left));
+                    values = values.concat(this.inorder(fn, node.left));
                 // root
                 values = values.concat(node.data);
                 if (node.right != null)
-                    values = values.concat(Tree.inorder(node.right));
+                    values = values.concat(this.inorder(fn, node.right));
                 return values;
             } else {
-                if (node.left != null) Tree.inorder(node.left, fn);
+                if (node.left != null) this.inorder(fn, node.left);
                 // root
                 fn(node);
-                if (node.right != null) Tree.inorder(node.right, fn);
+                if (node.right != null) this.inorder(fn, node.right);
             }
         }
     }
