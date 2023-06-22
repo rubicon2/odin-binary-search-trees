@@ -74,7 +74,7 @@ export default class Tree {
     }
 
     // recursive method
-    static postorder(node, fn) {
+    postorder(fn, node = this.root) {
         // postorder - left, right, root
         if (!node.left && !node.right) {
             if (!fn) return [node.data];
@@ -86,14 +86,14 @@ export default class Tree {
             if (!fn) {
                 let values = [];
                 if (node.left != null)
-                    values = values.concat(Tree.postorder(node.left));
+                    values = values.concat(this.postorder(fn, node.left));
                 if (node.right != null)
-                    values = values.concat(Tree.postorder(node.right));
+                    values = values.concat(this.postorder(fn, node.right));
                 values = values.concat(node.data);
                 return values;
             } else {
-                if (node.left != null) Tree.postorder(node.left, fn);
-                if (node.right != null) Tree.postorder(node.right, fn);
+                if (node.left != null) this.postorder(fn, node.left);
+                if (node.right != null) this.postorder(fn, node.right);
                 // root
                 fn(node);
             }
