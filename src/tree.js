@@ -6,7 +6,7 @@ export default class Tree {
         items.sort((a, b) => a > b);
         // Remove duplicates
         items = [...new Set(items)];
-        this.root = Tree.build(items);
+        this.root = this.build(items);
     }
 
     levelOrder(fn) {
@@ -231,7 +231,7 @@ export default class Tree {
         return node;
     }
 
-    static build(items) {
+    build(items) {
         // Sort the array before giving to this recursive function, or else it will get sorted in EVERY iteration. Only needs to be sorted once
         // If provided an empty array of items, then return null (i.e. the Node that called the iteration will have null for left or right child)
         if (items.length <= 0) return null;
@@ -241,8 +241,8 @@ export default class Tree {
         let midpoint = Math.floor(items.length / 2);
         return new Node(
             items[midpoint],
-            Tree.build(items.slice(0, midpoint)),
-            Tree.build(items.slice(midpoint + 1))
+            this.build(items.slice(0, midpoint)),
+            this.build(items.slice(midpoint + 1))
         );
     }
 
