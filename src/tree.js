@@ -123,7 +123,7 @@ export default class Tree {
         }
     }
 
-    static height(node) {
+    height(node) {
         // Return zero if we want to count each connection between nodes as a unit of height, or return 1 if we want to count each layer of nodes as a unit of height
         if (!node?.left && !node?.right) return 0;
         return 1 + Math.max(this.height(node.left), this.height(node.right));
