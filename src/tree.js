@@ -146,8 +146,8 @@ export default class Tree {
         return null;
     }
 
-    static delete(node, item) {
-        let { target, parent, whichChild } = Tree.findItemAndParent(node, item);
+    delete(item, node = this.root) {
+        let { target, parent, whichChild } = this.findItemAndParent(item, node);
         // If target is a leaf node
         if (!target.left && !target.right) parent[whichChild] = null;
         // If target has one child, grab its values, delete child, then replace target's values with those of child
@@ -166,12 +166,12 @@ export default class Tree {
             // Grab nextLargestNode.data before deleting that node and then assigning value to target.data
             // Otherwise, we will have a duplicate value in our tree - very bad!
             let newData = nextLargestNode.data;
-            this.delete(target, nextLargestNode.data);
+            this.delete(nextLargestNode.data, target);
             target.data = newData;
         }
     }
 
-    static findItemAndParent(node, item) {
+    findItemAndParent(item, node = this.root) {
         if (node.data === item)
             return { parent: null, target: node, whichChild: null };
 
