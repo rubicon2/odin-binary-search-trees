@@ -217,14 +217,14 @@ export default class Tree {
         return null;
     }
 
-    static findSmallestItemInTree(node) {
+    findSmallestItemInTree(node = this.root) {
         while (node.left != null) {
             node = node.left;
         }
         return node;
     }
 
-    static findLargestItemInTree(node) {
+    findLargestItemInTree(node = this.root) {
         while (node.right != null) {
             node = node.right;
         }
