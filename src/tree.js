@@ -152,11 +152,11 @@ export default class Tree {
         // If target has one child, grab its values, delete child, then replace target's values with those of child
         else if (!target.right) {
             let replacementNode = target.left;
-            this.delete(target, replacementNode.data);
+            this.delete(replacementNode.data, target);
             Object.assign(target, replacementNode);
         } else if (!target.left) {
             let replacementNode = target.right;
-            this.delete(target, replacementNode.data);
+            this.delete(replacementNode.data, target);
             Object.assign(target, replacementNode);
         } else {
             // If there are left and right children...
