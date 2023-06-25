@@ -13,3 +13,29 @@ console.log(myAmazingTree.height(myAmazingTree.root));
 myAmazingTree.delete(6);
 myAmazingTree.delete(14);
 myAmazingTree.prettyPrint();
+
+console.log('POST ORDER');
+console.log(myAmazingTree.postorder());
+
+console.log('IN ORDER');
+console.log(myAmazingTree.inorder());
+
+console.time('old level');
+console.log('LEVEL ORDER');
+console.log(myAmazingTree.levelorder());
+console.timeEnd('old level');
+
+console.time('rec level');
+console.log('REC LEVEL ORDER');
+console.log(myAmazingTree.rec_levelorder());
+console.timeEnd('rec level');
+
+console.time('old pre');
+console.log('PRE ORDER');
+console.log(myAmazingTree.preorder());
+console.timeEnd('old pre');
+
+console.time('rec pre');
+console.log('REC PRE ORDER');
+console.log(myAmazingTree.rec_preorder());
+console.timeEnd('rec pre');
