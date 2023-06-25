@@ -10,7 +10,6 @@ export default class Tree {
     }
 
     levelorder(fn, node = this.root) {
-        // Make a recursive version that avoids using arrays, especially shift() as that re-numbers all the elements!
         let nodesToTraverse = [node];
         let values = [];
         while (nodesToTraverse.length > 0) {
