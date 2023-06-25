@@ -26,6 +26,22 @@ export default class Tree {
         if (!fn) return values;
     }
 
+    rec_preorder(fn, node = this.root) {
+        // Doesn't seem to be any faster than the non-recursive version. Possibly due to spread operator? Is there a faster way to concat arrays?
+        if (!fn) {
+            let values = [node.data];
+            if (node.left != null)
+                values.push(...this.rec_preorder(fn, node.left));
+            if (node.right != null)
+                values.push(...this.rec_preorder(fn, node.right));
+            return values;
+        } else {
+            fn(node);
+            if (node.left != null) this.rec_preorder(fn, node.left);
+            if (node.right != null) this.rec_preorder(fn, node.right);
+        }
+    }
+
     preorder(fn, node = this.root) {
         // preorder - root, left, right
         let nodesToTraverse = [node];
