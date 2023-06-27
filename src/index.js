@@ -1,34 +1,74 @@
 import './style.css';
 import Tree from './tree';
 
-let myAmazingTree = new Tree([200, 2, 4, 6, 8, 14, 28, 82, 300, 300, 14]);
+function getRangedRandom(min, max) {
+    return min + (max - min) * Math.random();
+}
 
-myAmazingTree.insert(5);
+function getRangedRandomInt(min, max) {
+    return Math.round(getRangedRandom(min, max));
+}
+
+function getRangedRandomArray(min, max, arrayLength) {
+    let numbers = [];
+    while (numbers.length <= arrayLength) {
+        numbers.push(getRangedRandom(min, max));
+    }
+    return numbers;
+}
+
+function getRangedRandomIntArray(min, max, arrayLength) {
+    let ints = [];
+    while (ints.length <= arrayLength) {
+        ints.push(getRangedRandomInt(min, max));
+    }
+    return ints;
+}
+
+// Odin - Tie it all together...
+
+// 1
+let myAmazingTree = new Tree(getRangedRandomIntArray(0, 99, 10));
 myAmazingTree.prettyPrint();
-console.log(myAmazingTree.findSmallestItemInTree(myAmazingTree.root.right));
-console.log(myAmazingTree.findLargestItemInTree(myAmazingTree.root.left));
 
-console.log(myAmazingTree.height(myAmazingTree.root));
+// 2
+console.log('Is Balanced: ' + myAmazingTree.isBalanced());
 
-myAmazingTree.delete(6);
-myAmazingTree.delete(14);
-myAmazingTree.prettyPrint();
-
-console.log('POST ORDER');
+// 3
+console.log('LEVEL ORDER:');
+console.log(myAmazingTree.levelorder());
+console.log('PRE ORDER:');
+console.log(myAmazingTree.preorder());
+console.log('POST ORDER:');
 console.log(myAmazingTree.postorder());
-
-console.log('IN ORDER');
+console.log('IN ORDER:');
 console.log(myAmazingTree.inorder());
 
-console.log('LEVEL ORDER');
+// 4
+console.log(
+    'Adding the DEBASERS! (because they debase my beautiful balanced tree)'
+);
+let theDebasers = getRangedRandomIntArray(100, 200, 10);
+theDebasers.forEach((e) => {
+    myAmazingTree.insert(e);
+});
+
+// 5
+console.log('Is Balanced: ' + myAmazingTree.isBalanced());
+
+// 6
+myAmazingTree.rebalance();
+console.log('Tree was rebalanced. Purity has been regained.');
+
+// 7
+console.log('Is Balanced: ' + myAmazingTree.isBalanced());
+
+// 8
+console.log('LEVEL ORDER:');
 console.log(myAmazingTree.levelorder());
-
-console.time('old pre');
-console.log('PRE ORDER');
+console.log('PRE ORDER:');
 console.log(myAmazingTree.preorder());
-console.timeEnd('old pre');
-
-console.time('rec pre');
-console.log('REC PRE ORDER');
-console.log(myAmazingTree.rec_preorder());
-console.timeEnd('rec pre');
+console.log('POST ORDER:');
+console.log(myAmazingTree.postorder());
+console.log('IN ORDER:');
+console.log(myAmazingTree.inorder());
