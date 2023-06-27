@@ -172,6 +172,10 @@ export default class Tree {
         );
     }
 
+    rebalance() {
+        this.root = this.build(this.inorder());
+    }
+
     delete(item, node = this.root) {
         let { target, parent, whichChild } = this.findItemAndParent(item, node);
         // If target is a leaf node
