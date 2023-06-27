@@ -160,6 +160,18 @@ export default class Tree {
         return null;
     }
 
+    isBalanced(node = this.root) {
+        // Check that height difference between left and right subtree of every node are all <= 1.
+        if (!node) return true;
+        let leftHeight = !node.left ? 0 : this.height(node.left);
+        let rightHeight = !node.right ? 0 : this.height(node.right);
+        return (
+            Math.abs(leftHeight - rightHeight) <= 1 &&
+            this.isBalanced(node.left) &&
+            this.isBalanced(node.right)
+        );
+    }
+
     delete(item, node = this.root) {
         let { target, parent, whichChild } = this.findItemAndParent(item, node);
         // If target is a leaf node
