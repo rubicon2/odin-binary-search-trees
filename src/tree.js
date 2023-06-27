@@ -120,6 +120,9 @@ export default class Tree {
         while (searchingForInsertPoint) {
             if (currentNode.data === item) {
                 // Do nothing, no duplicates allowed in Tree
+                console.warn(
+                    `Attempted to add ${item} to tree - duplicate value.`
+                );
                 break;
             } else if (item < currentNode.data) {
                 if (currentNode.left) currentNode = currentNode.left;
